@@ -1,0 +1,69 @@
+# ----------------------------
+# Virtual Environments (Python)
+# ----------------------------
+venv/
+.venv/
+env/
+ENV/
+python/venv/
+**/venv/
+**/.venv/
+
+# ----------------------------
+# Node Modules (Backend)
+# ----------------------------
+node_modules/
+server/node_modules/
+**/node_modules/
+
+# ----------------------------
+# Python Cache
+# ----------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+
+# ----------------------------
+# Environment Variables
+# ----------------------------
+.env
+.env.*
+
+# ----------------------------
+# Audio Files
+# ----------------------------
+# Ignore generated outputs
+outputs/
+
+# Ignore all wav files
+*.wav
+
+# BUT keep your sample voice files
+!voices/
+!voices/*.wav
+
+# ----------------------------
+# Logs
+# ----------------------------
+*.log
+
+# ----------------------------
+# Build / Dist
+# ----------------------------
+build/
+dist/
+*.egg-info/
+
+# ----------------------------
+# IDE / Editor
+# ----------------------------
+.vscode/
+.idea/
+
+# ----------------------------
+# OS Files
+# ----------------------------
+.DS_Store
+Thumbs.db
