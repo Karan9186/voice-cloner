@@ -2,6 +2,8 @@ const express = require("express");
 const axios = require("axios");
 const multer = require("multer");
 const FormData = require("form-data");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const upload = multer({
@@ -14,10 +16,19 @@ const upload = multer({
 
 const PYTHON_API_URL = process.env.PYTHON_API_URL || "http://127.0.0.1:5001";
 const PORT = Number(process.env.PORT || 3000);
+const FRONTEND_TEMPLATE_PATH = path.join(__dirname, "frontend.html");
 
 app.use(express.json({ limit: "1mb" }));
 
-app.post("/clone", upload.single("audio"), async (req, res) => {
+function renderFrontendPage() {
+  const template = fs.readFileSync(FRONTEND_TEMPLATE_PATH, "utf8");
+  return template
+    .replaceAll("{{PAGE_TITLE}}", "Voice Clone Studio")
+    .replaceAll("{{API_BASE}}", "")
+    .replaceAll("{{PYTHON_API_URL}}", PYTHON_API_URL);
+}
+
+const handleGenerate = async (req, res) => {
   if (!req.body.text || !req.body.text.trim()) {
     return res.status(400).json({ status: "error", message: "Field 'text' is required." });
   }
@@ -33,14 +44,28 @@ app.post("/clone", upload.single("audio"), async (req, res) => {
     contentType: req.file.mimetype || "audio/wav",
   });
 
-  for (const fieldName of ["language", "temperature", "speed", "length_penalty", "repetition_penalty", "trim_silence"]) {
+  for (const fieldName of [
+    "language",
+    "temperature",
+    "top_p",
+    "speed",
+    "length_penalty",
+    "repetition_penalty",
+    "trim_silence",
+    "pitch",
+    "index_rate",
+    "protect",
+    "filter_radius",
+    "hop_length",
+    "f0_method",
+  ]) {
     if (req.body[fieldName] !== undefined) {
       form.append(fieldName, String(req.body[fieldName]));
     }
   }
 
   try {
-    const upstream = await axios.post(`${PYTHON_API_URL}/clone`, form, {
+    const upstream = await axios.post(`${PYTHON_API_URL}/generate`, form, {
       headers: form.getHeaders(),
       responseType: "stream",
       maxBodyLength: Infinity,
@@ -74,7 +99,14 @@ app.post("/clone", upload.single("audio"), async (req, res) => {
       res.status(502).json({ status: "error", message: "Failed to reach Python TTS service." });
     }
   }
+};
+
+app.get("/", (_req, res) => {
+  res.type("html").send(renderFrontendPage());
 });
+
+app.post("/generate", upload.single("audio"), handleGenerate);
+app.post("/clone", upload.single("audio"), handleGenerate);
 
 app.all("/health", async (_req, res) => {
   try {

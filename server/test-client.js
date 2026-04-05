@@ -7,7 +7,7 @@ async function main() {
   const text = process.argv[2] || "This is a streaming XTTS clone test from the Node proxy.";
   const audioPath = process.argv[3];
   const outputPath = process.argv[4] || path.join(process.cwd(), "test-output.wav");
-  const targetUrl = process.env.NODE_PROXY_URL || "http://127.0.0.1:3000/clone";
+  const targetUrl = process.env.NODE_PROXY_URL || "http://127.0.0.1:3000/generate";
 
   if (!audioPath) {
     throw new Error('Usage: node test-client.js "text" path/to/reference.wav [output.wav]');

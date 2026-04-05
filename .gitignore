@@ -41,6 +41,7 @@ outputs/
 
 # Ignore all wav files
 *.wav
+*.mp3
 
 # BUT keep your sample voice files
 !voices/

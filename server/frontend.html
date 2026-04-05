@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{PAGE_TITLE}}</title>
+  <style>
+    :root {
+      --bg: #f5efe6;
+      --panel: #fffaf2;
+      --panel-strong: #fff;
+      --ink: #1f2933;
+      --muted: #5f6c7b;
+      --accent: #be5a38;
+      --accent-dark: #8d3d22;
+      --line: rgba(31, 41, 51, 0.12);
+      --shadow: 0 22px 44px rgba(69, 44, 31, 0.12);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(190, 90, 56, 0.16), transparent 28%),
+        radial-gradient(circle at right 20%, rgba(52, 127, 108, 0.12), transparent 24%),
+        linear-gradient(180deg, #f7f0e6 0%, #f2e7d8 100%);
+      min-height: 100vh;
+    }
+
+    .shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 20px 56px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 4.8rem);
+      line-height: 0.95;
+      font-weight: 600;
+      max-width: 10ch;
+    }
+
+    .subcopy {
+      margin: 0;
+      max-width: 60ch;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: rgba(255, 250, 242, 0.82);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .card h2 {
+      margin: 0 0 14px;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-size: 0.95rem;
+      color: var(--ink);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(31, 41, 51, 0.14);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font: inherit;
+      color: var(--ink);
+      background: var(--panel-strong);
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    input[type="file"] {
+      font: inherit;
+      padding: 10px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    button,
+    .download-link {
+      border: none;
+      border-radius: 999px;
+      padding: 13px 22px;
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 160ms ease, opacity 160ms ease, background 160ms ease;
+    }
+
+    button:hover,
+    .download-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #fff9f4;
+    }
+
+    .secondary {
+      background: rgba(31, 41, 51, 0.08);
+      color: var(--ink);
+    }
+
+    .download-link {
+      display: none;
+      background: #347f6c;
+      color: #f7fbf8;
+    }
+
+    .status {
+      min-height: 24px;
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .status.error {
+      color: #b42318;
+    }
+
+    .status.success {
+      color: #0e6f54;
+    }
+
+    .meta {
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(31, 41, 51, 0.07);
+      color: var(--ink);
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .hint {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 880px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">Node SSR Frontend</div>
+      <h1>{{PAGE_TITLE}}</h1>
+      <p class="subcopy">
+        Upload a clean reference voice, enter text, and let the Node server forward the request to the Python cloning API.
+        You can preview the generated speech right here and download the cloned WAV immediately after generation.
+      </p>
+    </section>
+
+    <section class="layout">
+      <form class="card stack" id="cloneForm">
+        <h2>Create Clone</h2>
+
+        <label>
+          Reference audio
+          <input type="file" name="audio" id="audio" accept=".wav,audio/wav,audio/x-wav,.mp3,audio/mpeg" required />
+        </label>
+
+        <label>
+          Text to synthesize
+          <textarea name="text" id="text" placeholder="Type the script you want the cloned voice to speak." required></textarea>
+        </label>
+
+        <div class="grid">
+          <label>
+            Language
+            <input type="text" name="language" id="language" value="en" />
+          </label>
+
+          <label>
+            Temperature
+            <input type="number" name="temperature" id="temperature" value="0.4" min="0.1" max="1" step="0.05" />
+          </label>
+
+          <label>
+            Top P
+            <input type="number" name="top_p" id="top_p" value="0.85" min="0.1" max="1" step="0.05" />
+          </label>
+
+          <label>
+            Speed
+            <input type="number" name="speed" id="speed" value="1.0" min="0.5" max="2" step="0.05" />
+          </label>
+        </div>
+
+        <label class="toggle">
+          <input type="checkbox" name="trim_silence" id="trim_silence" checked />
+          Trim silence from the reference clip before cloning
+        </label>
+
+        <div class="button-row">
+          <button class="primary" type="submit" id="submitButton">Generate Clone</button>
+          <button class="secondary" type="button" id="healthButton">Check Health</button>
+          <a class="download-link" id="downloadLink" download="cloned-audio.wav">Download Audio</a>
+        </div>
+
+        <p class="status" id="statusText">Waiting for input.</p>
+      </form>
+
+      <aside class="card stack">
+        <h2>Preview</h2>
+
+        <div class="meta">
+          <span class="pill">Node API: {{API_BASE}}/generate</span>
+          <span class="pill">Python upstream: {{PYTHON_API_URL}}</span>
+          <span class="pill" id="pipelinePill">Pipeline: unknown</span>
+        </div>
+
+        <audio id="audioPlayer" controls preload="none"></audio>
+        <p class="hint">
+          For best results, use a clean single-speaker reference clip with low background noise and a steady speaking pace.
+        </p>
+        <pre class="hint" id="healthOutput"></pre>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("cloneForm");
+    const submitButton = document.getElementById("submitButton");
+    const healthButton = document.getElementById("healthButton");
+    const statusText = document.getElementById("statusText");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const downloadLink = document.getElementById("downloadLink");
+    const pipelinePill = document.getElementById("pipelinePill");
+    const healthOutput = document.getElementById("healthOutput");
+
+    let currentObjectUrl = null;
+
+    function setStatus(message, tone) {
+      statusText.textContent = message;
+      statusText.className = "status" + (tone ? ` ${tone}` : "");
+    }
+
+    function releaseObjectUrl() {
+      if (currentObjectUrl) {
+        URL.revokeObjectURL(currentObjectUrl);
+        currentObjectUrl = null;
+      }
+    }
+
+    async function parseError(response) {
+      try {
+        const data = await response.json();
+        return data.message || "Request failed.";
+      } catch {
+        return `Request failed with status ${response.status}.`;
+      }
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      releaseObjectUrl();
+      downloadLink.style.display = "none";
+      audioPlayer.removeAttribute("src");
+      audioPlayer.load();
+
+      const formData = new FormData();
+      const audioFile = document.getElementById("audio").files[0];
+      const text = document.getElementById("text").value.trim();
+
+      if (!audioFile) {
+        setStatus("Please choose a reference audio file.", "error");
+        return;
+      }
+
+      if (!text) {
+        setStatus("Please enter text to synthesize.", "error");
+        return;
+      }
+
+      formData.append("audio", audioFile);
+      formData.append("text", text);
+      formData.append("language", document.getElementById("language").value.trim());
+      formData.append("temperature", document.getElementById("temperature").value);
+      formData.append("top_p", document.getElementById("top_p").value);
+      formData.append("speed", document.getElementById("speed").value);
+      if (document.getElementById("trim_silence").checked) {
+        formData.append("trim_silence", "true");
+      }
+
+      submitButton.disabled = true;
+      setStatus("Generating cloned speech...", "");
+
+      try {
+        const response = await fetch("/generate", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error(await parseError(response));
+        }
+
+        const blob = await response.blob();
+        if (!blob.size) {
+          throw new Error("The API returned empty audio.");
+        }
+
+        currentObjectUrl = URL.createObjectURL(blob);
+        audioPlayer.src = currentObjectUrl;
+        audioPlayer.load();
+        downloadLink.href = currentObjectUrl;
+        downloadLink.style.display = "inline-flex";
+
+        const pipeline = response.headers.get("X-Voice-Pipeline") || "unknown";
+        pipelinePill.textContent = `Pipeline: ${pipeline}`;
+        setStatus(`Clone ready. ${Math.round(blob.size / 1024)} KB received.`, "success");
+      } catch (error) {
+        setStatus(error.message || "Failed to generate clone audio.", "error");
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+
+    healthButton.addEventListener("click", async () => {
+      healthButton.disabled = true;
+      healthOutput.textContent = "Checking health...";
+      try {
+        const response = await fetch("/health", { method: "POST" });
+        const data = await response.json();
+        healthOutput.textContent = JSON.stringify(data, null, 2);
+        if (data.pipeline) {
+          pipelinePill.textContent = `Pipeline: ${data.pipeline}`;
+        }
+      } catch (error) {
+        healthOutput.textContent = error.message || "Health check failed.";
+      } finally {
+        healthButton.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
