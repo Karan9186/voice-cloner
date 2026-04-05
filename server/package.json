@@ -1,17 +1,25 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node.js streaming proxy for Flask XTTS voice cloning",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test:clone": "node test-client.js"
   },
-  "keywords": [],
+  "keywords": [
+    "tts",
+    "xtts",
+    "streaming",
+    "voice-cloning"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "axios": "^1.14.0",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "form-data": "^4.0.4",
+    "multer": "^2.1.1"
   }
 }
