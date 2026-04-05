@@ -1,6 +1,8 @@
 # ----------------------------
 # Virtual Environments (Python)
 # ----------------------------
+voices/
+my-story/
 venv/
 .venv/
 env/
@@ -43,6 +45,7 @@ outputs/
 # BUT keep your sample voice files
 !voices/
 !voices/*.wav
+voices/
 
 # ----------------------------
 # Logs
